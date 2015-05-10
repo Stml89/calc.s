@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+    <!--<script src="js/controllers.js"></script>-->
     <title>Notes App</title>
     <style>
         .username.ng-valid {
@@ -15,43 +17,38 @@
         background-color: lightpink;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+
 </head>
-<body ng-controller="MainCtrl as ctrl"> 
-    <div>
-        <h2>Формула Харриса-Бенедикта</h2>
-        <div ng-repeat="sport in ctrl.sports">
-            <label ng-bind="sport.label"></label>
-            <div>
-                With Binding:
-                <input type="checkbox"
-                ng-model="sport.selected"
-                ng-true-value="YES"
-                ng-false-value="NO">
+<body ng-controller="MainCtrl as mainCtrl">
+    <div><!-- ng-controller="answerController"-->
+        <h2>Расчет по формуле Харриса-Бенедикта</h2>
+        <p>Ваш пол:</p>
+        <form name="answerForm">
+            <div ng-init="user = {gender: 'female'}">
+                <input type="radio"
+                        name="gender"
+                        ng-model="user.gender"
+                        value="male">M
+                <input type="radio"
+                        name="gender"
+                        ng-model="user.gender"
+                        value="female">Ж
             </div>
-            <div>
-                Using ng-checked:
-                <input type="checkbox"
-                ng-checked="sport.selected === 'YES'">
-            </div>
-            <div>
-                Current state: {{sport.selected}}
-            </div>
-        </div>
+
+            <input type="text" id="weight" placeholder="Введите свой вес" ng-model="user.weight" required>
+            <input type="text" id="height" placeholder="Введите свой рост(см)" ng-model="user.height" required>
+            <input type="text" id="age" placeholder="Введите свой возраст" ng-model="user.age" required>
+
+            <button type="submit" ng-click="mainCtrl.save(user, answerForm)">Сохранить</button>
+        </form>
+        <!--<p>Total: {{ getTotal() }}</p>-->
+        <!-- {{user.gender}} -->
+         <!--{{weight}}-->
+         <!--{{gender}}-->
     </div>
 
-<script type="text/javascript">
-    angular.module('notesApp', [])
-    .controller('MainCtrl', [function() {
-        var self = this;
-            self.sports = [
-            {label: 'Basketball', selected: 'YES'},
-            {label: 'Cricket', selected: 'NO'},
-            {label: 'Soccer', selected: 'NO'},
-            {label: 'Swimming', selected: 'YES'}
-            ];
-    }]);
-</script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
 <!-- https://ru-healthlife.livejournal.com/2643907.html -->
 <!-- http://blog.fizcult.by/blog/chto-est-do-i-posle-silovoy-trenirovki -->
 </body>
